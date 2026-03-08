@@ -188,11 +188,16 @@
   margin-top: calc(var(--nav-height) - 19px);
 }
 
-
 .landing-page #nd-docs-layout {
+  --fd-sidebar-width: 0px;
   @apply pl-0!;
 }
 
 .landing-page #nd-sidebar {
   @apply hidden;
+}
+
+@utility container {
+  margin-inline: auto;
+  padding-inline: 2rem;
 }
