@@ -1,13 +1,13 @@
 import type { TableOfContents } from "fumadocs-core/toc";
 import defaultMdxComponents from "fumadocs-ui/mdx";
 import {
-  DocsBody,
   DocsDescription,
   DocsPage,
   DocsTitle,
 } from "fumadocs-ui/layouts/docs/page";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
+import { BlocksCta } from "../../../components/blocks-cta";
 import { Installer } from "../../../components/installer";
 import { PoweredBy } from "../../../components/powered-by";
 import { Preview } from "../../../components/preview";
@@ -56,14 +56,16 @@ const Page = async (props: PageProps) => {
     >
       <DocsTitle>{page.data.title}</DocsTitle>
       <DocsDescription>{page.data.description}</DocsDescription>
-      <DocsBody>
-        {page.data.installer && (
-          <>
-            <Preview path={page.data.installer} type={type} />
-            <h2 id="installation">Installation</h2>
-            <Installer packageName={page.data.installer} />
-          </>
-        )}
+      {page.data.installer && (
+        <>
+          <Preview path={page.data.installer} type={type} />
+          <h2 id="installation" className="mt-8 mb-4 text-2xl font-semibold">
+            Installation
+          </h2>
+          <Installer packageName={page.data.installer} />
+        </>
+      )}
+      <div className="prose dark:prose-invert max-w-none">
         <MDX
           components={{
             ...defaultMdxComponents,
@@ -72,7 +74,8 @@ const Page = async (props: PageProps) => {
             PoweredBy,
           }}
         />
-      </DocsBody>
+      </div>
+      {type === "block" && <BlocksCta category={page.data.title} />}
     </DocsPage>
   );
 };
